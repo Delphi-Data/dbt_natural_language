@@ -1,8 +1,13 @@
 {% macro setup(
         api_key = none,
         client_id = none,
+        iam_role = none,
         dev = none
     ) %}
+    {% if api_key is none or client_id is none or iam_role is none %}
+        {{ exceptions.raise_compiler_error("API key, Client ID, and IAM role must be provided. Please reach out to Michael Irvine on the dbt Slack or at michael.j.irvine@gmail.com to get your keys.") }}
+    {% endif %}
+
     {{ return(adapter.dispatch('setup', 'dbt_delphi')(api_key, client_id, dev)) }}
 {% endmacro %}
 
@@ -13,11 +18,11 @@
 {% macro snowflake__setup(
         api_key,
         client_id,
-        dev
+        iam_role dev
     ) %}
     {% set create_api_integration %}
     CREATE
-    OR REPLACE api integration delphi_external_api_aws api_provider = aws_api_gateway api_aws_role_arn = 'arn:aws:iam::474028228514:role/snowflake_delphi_api_gateway_role' api_allowed_prefixes =('https://7f7si8f6k6.execute-api.us-east-1.amazonaws.com') enabled = TRUE {% endset %}
+    OR REPLACE api integration delphi_external_api_aws api_provider = aws_api_gateway api_aws_role_arn = '{{ iam_role }}' api_allowed_prefixes =('https://7f7si8f6k6.execute-api.us-east-1.amazonaws.com') enabled = TRUE {% endset %}
     {% set create_external_function %}
     CREATE
     OR REPLACE EXTERNAL FUNCTION text_to_sql(
