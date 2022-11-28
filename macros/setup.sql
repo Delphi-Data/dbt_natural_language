@@ -8,7 +8,7 @@
         {{ exceptions.raise_compiler_error("API key, Client ID, and IAM role must be provided. Please reach out to Michael Irvine on the dbt Slack or at michael.j.irvine@gmail.com to get your keys.") }}
     {% endif %}
 
-    {{ return(adapter.dispatch('setup', 'dbt_delphi')(api_key, client_id, dev)) }}
+    {{ return(adapter.dispatch('setup', 'dbt_delphi')(api_key, client_id, iam_role, dev)) }}
 {% endmacro %}
 
 {% macro default__setup() %}
@@ -18,7 +18,8 @@
 {% macro snowflake__setup(
         api_key,
         client_id,
-        iam_role dev
+        iam_role,
+        dev
     ) %}
     {% set create_api_integration %}
     CREATE
