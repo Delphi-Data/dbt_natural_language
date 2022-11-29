@@ -31,15 +31,14 @@ packages:
 dbt run-operation dbt_delphi.setup --args '{client_id: "YOUR_CLIENT_ID", api_key: "YOUR_API_KEY", iam_role: "YOUR_IAM_ROLE"}'
 ```
 
-5. You're all set! Create a model or analysis using the `text_to_sql` macro or use it in interactive Semantic Layer queries. For example:
+5. You're all set! Create a model or analysis using the `text_to_sql` macro. For example:
+
+_models/returns.sql_
 
 ```bash
 {{ dbt_delphi.text_to_sql('how many returns did we have in 2018 by customer?') }}
 ```
 
-## Todo
+## Acknowledgements
 
-1. Add readme
-2. Demo video on Lightdash
-3. Secure endpoint with IAM or make Snowflake not require it
-4. Rotate IAM
+This package is based on the Snowflake external functions architecture laid out by Jacopo Tagliabue and Avanika Narayan in [Foundation Models for Entity Matching in dbt and Snowflake](https://github.com/jacopotagliabue/foundation-models-for-dbt-entity-matching)
