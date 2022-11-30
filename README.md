@@ -1,9 +1,9 @@
-# Delphi - Natural Language Queries for dbt
+# dbt_natural_language - Natural Language Queries for dbt
 
-The Delphi dbt package makes working with metrics as easy as asking a question
+This dbt package makes working with metrics as easy as asking a question
 
 ```bash
-{{ dbt_delphi.text_to_sql('how many returns did we have in 2018 by customer?') }}
+{{ natural_language.text_to_sql('how many returns did we have in 2018 by customer?') }}
 ```
 
 ## Usage
@@ -11,7 +11,8 @@ The Delphi dbt package makes working with metrics as easy as asking a question
 ### Requirements
 
 - Snowflake
-- dbt core
+- dbt
+- dbt metrics
 
 ### Quickstart
 
@@ -19,7 +20,7 @@ The Delphi dbt package makes working with metrics as easy as asking a question
 
 ```yaml
 packages:
-  - git: "https://github.com/Delphi-Data/dbt_delphi.git"
+  - git: "https://github.com/Delphi-Data/dbt_natural_language.git"
     revision: 0.0.0
 ```
 
@@ -28,15 +29,15 @@ packages:
 4. Then, run the following setup command:
 
 ```bash
-dbt run-operation dbt_delphi.setup --args '{client_id: "YOUR_CLIENT_ID", api_key: "YOUR_API_KEY", iam_role: "YOUR_IAM_ROLE"}'
+dbt run-operation natural_language.setup --args '{client_id: "YOUR_CLIENT_ID", api_key: "YOUR_API_KEY", iam_role: "YOUR_IAM_ROLE"}'
 ```
 
-5. You're all set! Create a model or analysis using the `text_to_sql` macro. For example:
+5. You're all set! Create a model or analysis using the `text_to_sql` macro. It lets you ask questions about your dbt metrics. For example:
 
 _models/returns.sql_
 
 ```bash
-{{ dbt_delphi.text_to_sql('how many returns did we have in 2018 by customer?') }}
+{{ natural_language.text_to_sql('how many returns did we have in 2018 by customer?') }}
 ```
 
 ## Acknowledgements

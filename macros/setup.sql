@@ -8,11 +8,11 @@
         {{ exceptions.raise_compiler_error("API key, Client ID, and IAM role must be provided. Please reach out to Michael Irvine on the dbt Slack or at michael.j.irvine@gmail.com to get your keys.") }}
     {% endif %}
 
-    {{ return(adapter.dispatch('setup', 'dbt_delphi')(api_key, client_id, iam_role, dev)) }}
+    {{ return(adapter.dispatch('setup', 'natural_language')(api_key, client_id, iam_role, dev)) }}
 {% endmacro %}
 
 {% macro default__setup() %}
-    {{ exceptions.raise_compiler_error("dbt_delphi is not yet implemented for this adapter. Currently it is only available for Snowflake. Please get in touch with Michael Irvine on the dbt Slack or at michael.j.irvine@gmail.com.") }}
+    {{ exceptions.raise_compiler_error("natural_language is not yet implemented for this adapter. Currently it is only available for Snowflake. Please get in touch with Michael Irvine on the dbt Slack or at michael.j.irvine@gmail.com.") }}
 {% endmacro %}
 
 {% macro snowflake__setup(

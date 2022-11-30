@@ -12,7 +12,7 @@
     ) %}
     {% for field in ['name', 'dimensions', 'description', 'time_grains', 'label'] %}
         {% do ns.fields.update(
-            { field: dbt_delphi._get_field(
+            { field: natural_language._get_field(
                 metrics,
                 field
             ) }
@@ -38,5 +38,5 @@
 
 {% macro _get_metrics() %}
     {{ return(
-        dbt_delphi._parse_graph_metrics(graph.metrics.values())) }}
+        natural_language._parse_graph_metrics(graph.metrics.values())) }}
 {% endmacro %}
