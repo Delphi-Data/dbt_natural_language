@@ -20,8 +20,8 @@ This dbt package makes working with metrics as easy as asking a question
 
 ```yaml
 packages:
-  - git: "https://github.com/Delphi-Data/dbt_natural_language.git"
-    revision: 0.0.1
+  - package: Delphi-Data/natural_language
+    version: [">=0.0.2"]
 ```
 
 2. Install it by running `dbt deps`
