@@ -1,4 +1,5 @@
 {% macro setup(
+        api_path = 'https://7f7si8f6k6.execute-api.us-east-1.amazonaws.com/query'
         api_key = none,
         client_id = none,
         iam_role = none,
@@ -16,6 +17,7 @@
 {% endmacro %}
 
 {% macro snowflake__setup(
+        api_path,
         api_key,
         client_id,
         iam_role,
@@ -23,7 +25,7 @@
     ) %}
     {% set create_api_integration %}
     CREATE
-    OR REPLACE api integration delphi_external_api_aws api_provider = aws_api_gateway api_aws_role_arn = '{{ iam_role }}' api_allowed_prefixes =('https://7f7si8f6k6.execute-api.us-east-1.amazonaws.com') enabled = TRUE {% endset %}
+    OR REPLACE api integration delphi_external_api_aws api_provider = aws_api_gateway api_aws_role_arn = '{{ iam_role }}' api_allowed_prefixes =('{{ api_path }}') enabled = TRUE {% endset %}
     {% set create_external_function %}
     CREATE
     OR REPLACE EXTERNAL FUNCTION text_to_sql(
@@ -32,7 +34,7 @@
     ) returns variant api_integration = delphi_external_api_aws headers = (
         'X-CLIENT-ID' = '{{ client_id }}',
         'X-API-KEY' = '{{ api_key }}'
-    ) AS 'https://7f7si8f6k6.execute-api.us-east-1.amazonaws.com/{% if dev %}dev{% else %}query{% endif %}' {% endset %}
+    ) AS '{{ api_path }}' {% endset %}
     {% do run_query(create_api_integration) %}
     {% do run_query(create_external_function) %}
 {% endmacro %}
