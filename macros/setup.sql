@@ -27,8 +27,8 @@
     CREATE
     OR REPLACE api integration delphi_external_api_aws api_provider = aws_api_gateway api_aws_role_arn = '{{ iam_role }}' api_allowed_prefixes =('{{ api_path }}') enabled = TRUE {% endset %}
     {% set create_external_function %}
-    CREATE
-    OR REPLACE EXTERNAL FUNCTION text_to_sql(
+    CREATE OR REPLACE SCHEMA {{ target.database }}.DBT_NATURAL_LANGUAGE;
+    CREATE OR REPLACE EXTERNAL FUNCTION {{ target.database }}.DBT_NATURAL_LANGUAGE.text_to_sql(
         question VARCHAR,
         metrics VARCHAR
     ) returns variant api_integration = delphi_external_api_aws headers = (

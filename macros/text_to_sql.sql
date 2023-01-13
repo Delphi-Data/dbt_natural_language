@@ -14,7 +14,7 @@
     {% if execute %}
         {% set external_function_query %}
     SELECT
-        text_to_sql(
+        {{ target.database }}.DBT_NATURAL_LANGUAGE.text_to_sql(
             '{{ question }}',
             '{{ natural_language._get_metrics() }}'
         ) {% endset %}
